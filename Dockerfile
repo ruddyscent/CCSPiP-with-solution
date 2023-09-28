@@ -6,6 +6,7 @@ RUN apt-get update \
     python3-pytest \
     python-is-python3 \
     neovim \
+    git \
  && apt-get clean autoclean \
  && apt-get autoremove --yes
 
