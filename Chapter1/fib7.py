@@ -18,7 +18,6 @@
 phi: float = (1 + 5 ** 0.5) / 2
 
 def fib7(n: int) -> int:
-    
     return int(round(phi**n / 5**0.5))
 
 if __name__ == '__main__':

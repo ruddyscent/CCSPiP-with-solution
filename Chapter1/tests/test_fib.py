@@ -1,5 +1,5 @@
-# tests_fib7.py
-# From Classic Computer Science Problems in Python Chapter 1
+# tests_fib.py
+# unit test of Fibonacci implementations
 # Copyright 2023 Kyungwon Chun
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
