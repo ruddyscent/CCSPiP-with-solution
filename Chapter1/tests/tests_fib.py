@@ -17,7 +17,7 @@
 import time
 import unittest
 
-from typing import Dict
+from typing import Dict, List
 
 import fib1
 import fib2
@@ -57,15 +57,11 @@ class Fib3TestCase(unittest.TestCase):
 
     def test_elapsed_time(self) -> None:
         t: float = time.process_time()
-        for n, fib_n in FIB_TABLE.items():
-            result: int = fib2.fib2(n)
-            assert result == fib_n
+        result: List[int] = [fib2.fib2(n) for n in FIB_TABLE.keys()]
         elapsed_time_fib2: float = time.process_time() - t
 
         t: float = time.process_time()
-        for n, fib_n in FIB_TABLE.items():
-            result: int = fib3.fib3(n)
-            assert result == fib_n
+        result: List[int] = [fib3.fib3(n) for n in FIB_TABLE.keys()]
         elapsed_time_fib3: float = time.process_time() - t
 
         assert elapsed_time_fib3 < elapsed_time_fib2
@@ -79,15 +75,11 @@ class Fib4TestCase(unittest.TestCase):
 
     def test_elapsed_time(self) -> None:
         t: float = time.process_time()
-        for n, fib_n in FIB_TABLE.items():
-            result: int = fib2.fib2(n)
-            assert result == fib_n
+        result: List[int] = [fib2.fib2(n) for n in FIB_TABLE.keys()]
         elapsed_time_fib2: float = time.process_time() - t
 
         t: float = time.process_time()
-        for n, fib_n in FIB_TABLE.items():
-            result: int = fib4.fib4(n)
-            assert result == fib_n
+        result: List[int] = [fib4.fib4(n) for n in FIB_TABLE.keys()]
         elapsed_time_fib4: float = time.process_time() - t
 
         assert elapsed_time_fib4 < elapsed_time_fib2
@@ -101,18 +93,50 @@ class Fib5TestCase(unittest.TestCase):
 
     def test_elapsed_time(self) -> None:
         t: float = time.process_time()
-        for n, fib_n in FIB_TABLE.items():
-            result: int = fib2.fib2(n)
-            assert result == fib_n
+        result: List[int] = [fib2.fib2(n) for n in FIB_TABLE.keys()]
         elapsed_time_fib2: float = time.process_time() - t
 
         t: float = time.process_time()
-        for n, fib_n in FIB_TABLE.items():
-            result: int = fib5.fib5(n)
-            assert result == fib_n
+        result: List[int] = [fib4.fib4(n) for n in FIB_TABLE.keys()]
         elapsed_time_fib5: float = time.process_time() - t
 
         assert elapsed_time_fib5 < elapsed_time_fib2
+
+
+class Fib6TestCase(unittest.TestCase):
+    def test_value(self) -> None:
+        reuslt: List[int] = [n for n in fib6.fib6(max(FIB_TABLE.keys()))]
+        for n, fib_n in FIB_TABLE.items():
+            assert reuslt[n] == fib_n
+
+    def test_elapsed_time(self) -> None:
+        t: float = time.process_time()
+        result: List[int] = [fib2.fib2(n) for n in FIB_TABLE.keys()]
+        elapsed_time_fib2: float = time.process_time() - t
+
+        t: float = time.process_time()
+        result: List[int] = [n for n in fib6.fib6(max(FIB_TABLE.keys()))]
+        elapsed_time_fib6: float = time.process_time() - t
+
+        assert elapsed_time_fib6 < elapsed_time_fib2
+
+
+class Fib7TestCase(unittest.TestCase):
+    def test_value(self) -> None:
+        for n, fib_n in FIB_TABLE.items():
+            result: int = fib7.fib7(n)
+            assert result == fib_n
+
+    def test_elapsed_time(self) -> None:
+        t: float = time.process_time()
+        result: List[int] = [fib2.fib2(n) for n in FIB_TABLE.keys()]
+        elapsed_time_fib2: float = time.process_time() - t
+
+        t: float = time.process_time()
+        result: List[int] = [fib7.fib7(n) for n in FIB_TABLE.keys()]
+        elapsed_time_fib7: float = time.process_time() - t
+
+        assert elapsed_time_fib7 < elapsed_time_fib2
 
 
 if __name__ == '__main__':
