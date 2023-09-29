@@ -31,7 +31,7 @@ class UnbreakableEncryptionTestCase(unittest.TestCase):
 
 
 class UnbreakableEncryptionImageTestCase(unittest.TestCase):
-    original_path: str = "/workspace/Chapter1/asset/cover.png"
+    original_path: str = "/workspace/Chapter1/assets/cover.png"
 
     def test_restoration(self) -> None:
         key1: int
