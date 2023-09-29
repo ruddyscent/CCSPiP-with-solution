@@ -38,7 +38,30 @@ def decrypt(key1: int, key2: int) -> str:
     return temp.decode()
 
 
+def encrypt_image(filename: str) -> None:
+    # open file and convert to PNG
+    with open(filename, "rb") as bmp_file:
+        original_bytes: bytes = bmp_file.read()
+
+    dummy: int = random_key(len(original_bytes))
+    encrypted: int = int.from_bytes(original_bytes, "big") ^ dummy  # XOR
+
+    return dummy, encrypted
+
+def decrypt_image(key1: int, key2: int) -> bytes:
+    decrypted: int = key1 ^ key2  # XOR
+    temp: bytes = decrypted.to_bytes((decrypted.bit_length() + 7) // 8, "big")
+    return temp
+
+
 if __name__ == "__main__":
     key1, key2 = encrypt("One Time Pad!")
     result: str = decrypt(key1, key2)
     print(result)
+
+    key1: int
+    key2: int
+    key1, key2 = encrypt_image("./asset/cover.png")
+    result: bytes = decrypt_image(key1, key2)
+    
+
