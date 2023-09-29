@@ -29,11 +29,11 @@ class GenericSearchTestCase(unittest.TestCase):
     def test_binary_contains(self) -> None:
         self.assertTrue(generic_search.binary_contains(["a", "d", "e", "f", "z"], "f"))
         self.assertFalse(generic_search.binary_contains(["john", "mark", "ronald", "sarah"], "sheila"))
-        
 
     def test_compare_performance(self) -> None:
         n_samples: int = 10
-        numbers: list[int] = [x for x in range(1_000_000)]
+        n_numbers: int = 1_000_000
+        numbers: list[int] = [x for x in range(n_numbers)]
         keys: int = random.choices(numbers, k=n_samples)
 
         t: float = time.process_time()
@@ -45,8 +45,9 @@ class GenericSearchTestCase(unittest.TestCase):
         [generic_search.binary_contains(numbers, key) for key in keys]
         elapsed_time_binary: int = time.process_time() - t
 
-        self.assertGreater(elapsed_time_linear / elapsed_time_binary, 0.01 * 1_000_000 / math.log(1_000_000, 2))
+        self.assertGreater(elapsed_time_linear / elapsed_time_binary, 0.01 * n_numbers / math.log(n_numbers, 2))
         
 
 if __name__ == '__main__':
     unittest.main()
+
