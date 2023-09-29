@@ -1,4 +1,4 @@
-# tests_fib.py
+# tests_calculating_pi.py
 # unit test of calculating_pi
 # Copyright 2023 Kyungwon Chun
 #

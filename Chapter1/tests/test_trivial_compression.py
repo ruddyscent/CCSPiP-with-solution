@@ -1,4 +1,4 @@
-# tests_fib.py
+# tests_trivial_compression.py
 # unit test of trivial compression
 # Copyright 2023 Kyungwon Chun
 #

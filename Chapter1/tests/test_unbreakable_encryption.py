@@ -1,5 +1,5 @@
-# tests_fib.py
-# unit test of unbreakable_encryption
+# tests_unbreakable_encryption.py
+# unit test of unbreakable encryption
 # Copyright 2023 Kyungwon Chun
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
