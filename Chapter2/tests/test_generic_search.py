@@ -76,10 +76,10 @@ class NodeTestCase(unittest.TestCase):
 class DfsTestCase(unittest.TestCase):
     def test_dfs(self) -> None:
         self.assertEqual(
-            generic_search.dfs(1, lambda x: x == 5, lambda x: [x + 1, x + 2, x + 3, x + 4]).state, 
+            generic_search.dfs(1, lambda x: x == 5, lambda x: [x + 1, x + 2, x + 3, x + 4])[0].state, 
             5)
         self.assertEqual(
-            generic_search.dfs(1, lambda x: x == 5, lambda x: [(x + 1) % 5, (x + 2) % 5, (x + 3) % 5, (x + 4) % 5]), 
+            generic_search.dfs(1, lambda x: x == 5, lambda x: [(x + 1) % 5, (x + 2) % 5, (x + 3) % 5, (x + 4) % 5])[0],
             None)
 
 
@@ -106,10 +106,10 @@ class QueueTestCase(unittest.TestCase):
 class BfsTestCase(unittest.TestCase):
     def test_bfs(self) -> None:
         self.assertEqual(
-            generic_search.bfs(1, lambda x: x == 5, lambda x: [x + 1, x + 2, x + 3, x + 4]).state, 
+            generic_search.bfs(1, lambda x: x == 5, lambda x: [x + 1, x + 2, x + 3, x + 4])[0].state, 
             5)
         self.assertEqual(
-            generic_search.bfs(1, lambda x: x == 5, lambda x: [(x + 1) % 5, (x + 2) % 5, (x + 3) % 5, (x + 4) % 5]), 
+            generic_search.bfs(1, lambda x: x == 5, lambda x: [(x + 1) % 5, (x + 2) % 5, (x + 3) % 5, (x + 4) % 5])[0],
             None)
 
 
@@ -128,12 +128,12 @@ class PriorityQueueTestCase(unittest.TestCase):
 class AStarTestCase(unittest.TestCase):
     def test_astar(self) -> None:
         self.assertEqual(
-            generic_search.astar(1, lambda x: x == 5, lambda x: [x + 1, x + 2, x + 3, x + 4], lambda x: 0).state, 
+            generic_search.astar(1, lambda x: x == 5, lambda x: [x + 1, x + 2, x + 3, x + 4], lambda x: 0)[0].state, 
             5)
         self.assertEqual(
-            generic_search.astar(1, lambda x: x == 5, lambda x: [(x + 1) % 5, (x + 2) % 5, (x + 3) % 5, (x + 4) % 5], lambda x: 0),
+            generic_search.astar(1, lambda x: x == 5, lambda x: [(x + 1) % 5, (x + 2) % 5, (x + 3) % 5, (x + 4) % 5], lambda x: 0)[0],
             None)
-        
+
         
 if __name__ == '__main__':
     unittest.main()

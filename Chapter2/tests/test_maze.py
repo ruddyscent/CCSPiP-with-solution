@@ -17,7 +17,7 @@
 import math
 import unittest
 
-from typing import Callable, Optional
+from typing import Callable
 import maze
 
 
@@ -33,13 +33,6 @@ class MazeTestCase(unittest.TestCase):
     def test_successors(self) -> None:
         successors: list[maze.MazeLocation] = self.m.successors(maze.MazeLocation(1, 1))
         self.assertCountEqual(successors, [maze.MazeLocation(1, 0), maze.MazeLocation(1, 2), maze.MazeLocation(0, 1), maze.MazeLocation(2, 1)])
-
-    # def test_astar(self) -> None:
-    #     distance: Callable[[maze.MazeLocation], float] = maze.manhattan_distance(self.m.goal)
-    #     solution3: Optional[maze.Node[maze.MazeLocation]] = maze.astar(
-    #         self.m.start, self.m.goal_test, self.m.successors, distance
-    #         )
-    #     self.assertIsNotNone(solution3)
         
     def test_distance(self) -> None:
         distance: Callable[[maze.MazeLocation], float] = maze.manhattan_distance(self.m.goal)

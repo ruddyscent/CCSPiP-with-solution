@@ -107,32 +107,36 @@ def manhattan_distance(goal: MazeLocation) -> Callable[[MazeLocation], float]:
 
 
 if __name__ == "__main__":
-    # Test DFS
-    m: Maze = Maze()
-    print(m)
-    solution1: Optional[Node[MazeLocation]] = dfs(m.start, m.goal_test, m.successors)
-    if solution1 is None:
-        print("No solution found using depth-first search!")
-    else:
-        path1: List[MazeLocation] = node_to_path(solution1)
-        m.mark(path1)
-        print(m)
-        m.clear(path1)
-    # Test BFS
-    solution2: Optional[Node[MazeLocation]] = bfs(m.start, m.goal_test, m.successors)
-    if solution2 is None:
-        print("No solution found using breadth-first search!")
-    else:
-        path2: List[MazeLocation] = node_to_path(solution2)
-        m.mark(path2)
-        print(m)
-        m.clear(path2)
-    # Test A*
-    distance: Callable[[MazeLocation], float] = manhattan_distance(m.goal)
-    solution3: Optional[Node[MazeLocation]] = astar(m.start, m.goal_test, m.successors, distance)
-    if solution3 is None:
-        print("No solution found using A*!")
-    else:
-        path3: List[MazeLocation] = node_to_path(solution3)
-        m.mark(path3)
-        print(m)
+    counter_sum_dfs: int = 0
+    counter_sum_bfs: int = 0
+    counter_sum_astar: int = 0
+
+    trials: int = 0
+    while trials < 100:
+        m: Maze = Maze()
+
+        # Test DFS
+        counter_dfs: Optional[int] = dfs(m.start, m.goal_test, m.successors)[1]
+        if counter_dfs is None:
+            continue
+
+        # Test BFS
+        counter_bfs: Optional[int] = bfs(m.start, m.goal_test, m.successors)[1]
+        if counter_bfs is None:
+            continue
+
+        # Test A*
+        distance: Callable[[MazeLocation], float] = manhattan_distance(m.goal)
+        counter_astar: Optional[int] = astar(m.start, m.goal_test, m.successors, distance)[1]
+        if counter_astar is None:
+            continue
+
+        counter_sum_dfs += counter_dfs
+        counter_sum_bfs += counter_bfs
+        counter_sum_astar += counter_astar
+
+        trials += 1
+
+    print("DFS: {}".format(counter_sum_dfs / trials))
+    print("BFS: {}".format(counter_sum_bfs / trials))
+    print("A*: {}".format(counter_sum_astar / trials))
