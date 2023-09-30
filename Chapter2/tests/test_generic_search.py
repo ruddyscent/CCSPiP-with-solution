@@ -30,7 +30,7 @@ class GenericSearchTestCase(unittest.TestCase):
         self.assertTrue(generic_search.binary_contains(["a", "d", "e", "f", "z"], "f"))
         self.assertFalse(generic_search.binary_contains(["john", "mark", "ronald", "sarah"], "sheila"))
 
-    def test_compare_performance(self) -> None:
+    def test_linear_binary_compare_performance(self) -> None:
         n_samples: int = 10
         n_numbers: int = 1_000_000
         numbers: list[int] = [x for x in range(n_numbers)]
@@ -48,6 +48,93 @@ class GenericSearchTestCase(unittest.TestCase):
         self.assertGreater(elapsed_time_linear / elapsed_time_binary, 0.01 * n_numbers / math.log(n_numbers, 2))
         
 
+class StackTestCase(unittest.TestCase):
+    def test_stack(self) -> None:
+        s: generic_search.Stack[int] = generic_search.Stack()
+        s.push(1)
+        s.push(2)
+        s.push(3)
+        self.assertEqual(s.pop(), 3)
+        self.assertEqual(s.pop(), 2)
+        self.assertEqual(s.pop(), 1)
+        self.assertTrue(s.empty)
+
+
+class NodeTestCase(unittest.TestCase):
+    def test_node(self) -> None:
+        n1: generic_search.Node[int] = generic_search.Node(1, None)
+        n2: generic_search.Node[int] = generic_search.Node(2, n1)
+        n3: generic_search.Node[int] = generic_search.Node(3, n2)
+        self.assertEqual(n1.state, 1)
+        self.assertEqual(n2.state, 2)
+        self.assertEqual(n3.state, 3)
+        self.assertEqual(n2.parent, n1)
+        self.assertEqual(n3.parent, n2)
+        self.assertEqual(n1.parent, None)
+
+
+class DfsTestCase(unittest.TestCase):
+    def test_dfs(self) -> None:
+        self.assertEqual(
+            generic_search.dfs(1, lambda x: x == 5, lambda x: [x + 1, x + 2, x + 3, x + 4]).state, 
+            5)
+        self.assertEqual(
+            generic_search.dfs(1, lambda x: x == 5, lambda x: [(x + 1) % 5, (x + 2) % 5, (x + 3) % 5, (x + 4) % 5]), 
+            None)
+
+
+class NodeToPathTestCase(unittest.TestCase):
+    def test_node_to_path(self) -> None:
+        n1: generic_search.Node[int] = generic_search.Node(1, None)
+        n2: generic_search.Node[int] = generic_search.Node(2, n1)
+        n3: generic_search.Node[int] = generic_search.Node(3, n2)
+        self.assertEqual(generic_search.node_to_path(n3), [1, 2, 3])
+
+
+class QueueTestCase(unittest.TestCase):
+    def test_queue(self) -> None:
+        q: generic_search.Queue[int] = generic_search.Queue()
+        q.push(1)
+        q.push(2)
+        q.push(3)
+        self.assertEqual(q.pop(), 1)
+        self.assertEqual(q.pop(), 2)
+        self.assertEqual(q.pop(), 3)
+        self.assertTrue(q.is_empty())
+
+
+class BfsTestCase(unittest.TestCase):
+    def test_bfs(self) -> None:
+        self.assertEqual(
+            generic_search.bfs(1, lambda x: x == 5, lambda x: [x + 1, x + 2, x + 3, x + 4]).state, 
+            5)
+        self.assertEqual(
+            generic_search.bfs(1, lambda x: x == 5, lambda x: [(x + 1) % 5, (x + 2) % 5, (x + 3) % 5, (x + 4) % 5]), 
+            None)
+
+
+class PriorityQueueTestCase(unittest.TestCase):
+    def test_priority_queue(self) -> None:
+        pq: generic_search.PriorityQueue[int] = generic_search.PriorityQueue()
+        pq.push(1)
+        pq.push(2)
+        pq.push(3)
+        self.assertEqual(pq.pop(), 1)
+        self.assertEqual(pq.pop(), 2)
+        self.assertEqual(pq.pop(), 3)
+        self.assertTrue(pq.empty)
+
+
+class AStarTestCase(unittest.TestCase):
+    def test_astar(self) -> None:
+        self.assertEqual(
+            generic_search.astar(1, lambda x: x == 5, lambda x: [x + 1, x + 2, x + 3, x + 4], lambda x: 0).state, 
+            5)
+        self.assertEqual(
+            generic_search.astar(1, lambda x: x == 5, lambda x: [(x + 1) % 5, (x + 2) % 5, (x + 3) % 5, (x + 4) % 5], lambda x: 0),
+            None)
+        
+        
 if __name__ == '__main__':
     unittest.main()
 
