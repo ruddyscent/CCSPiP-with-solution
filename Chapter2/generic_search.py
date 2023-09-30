@@ -215,6 +215,22 @@ def astar(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], 
 
 
 if __name__ == "__main__":
-    print(linear_contains([1, 5, 15, 15, 15, 15, 20], 5))  # True
-    print(binary_contains(["a", "d", "e", "f", "z"], "f"))  # True
-    print(binary_contains(["john", "mark", "ronald", "sarah"], "sheila"))  # False
+    import random
+    import time
+
+    n_samples: int = 1
+    n_numbers: int = 1_000_000
+    numbers: list[int] = [x for x in range(n_numbers)]
+    keys: int = random.choices(numbers, k=n_samples)
+
+    t: float = time.process_time()
+    [linear_contains(numbers, key) for key in keys]
+    elapsed_time_linear: int = time.process_time() - t
+    print(f"Linear search time: {elapsed_time_linear:e} seconds") 
+
+    t: float = time.process_time()
+    [binary_contains(numbers, key) for key in keys]
+    elapsed_time_binary: int = time.process_time() - t
+    print(f"Binary search time: {elapsed_time_binary:e} seconds")
+
+   
