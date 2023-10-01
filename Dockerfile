@@ -8,6 +8,7 @@ RUN apt-get update \
     python-is-python3 \
     neovim \
     git \
+    less \
  && apt-get clean autoclean \
  && apt-get autoremove --yes
 
