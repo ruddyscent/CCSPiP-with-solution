@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import annotations
+
 import math
 
 from typing import Dict, Set
@@ -52,7 +54,7 @@ class ErgonomicCompressor:
         bits: int = self.bit_string >> (bit_length - (index + 1) * self.bit_size) & self.mask  # get just relevant bits
         return self.bit2char[bits]
     
-    def __iter__(self) -> "ErgonomicCompressor":
+    def __iter__(self) -> ErgonomicCompressor:
         return self
     
     def __next__(self) -> str:
