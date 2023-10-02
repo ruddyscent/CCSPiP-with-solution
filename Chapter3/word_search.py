@@ -13,6 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 from typing import NamedTuple, List, Dict, Optional
 from random import choice
 from string import ascii_uppercase
@@ -55,7 +56,7 @@ def generate_domain(word: str, grid: Grid) -> List[List[GridLocation]]:
                 # top to bottom
                 domain.append([GridLocation(r, col) for r in rows])
                 # diagonal towards bottom left
-                if col - length >= 0:
+                if col + 1 - length >= 0:
                     domain.append([GridLocation(r, col - (r - row)) for r in rows])
     return domain
 
