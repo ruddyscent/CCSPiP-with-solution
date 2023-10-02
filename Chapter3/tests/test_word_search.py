@@ -36,9 +36,9 @@ class TestWordSearch(unittest.TestCase):
                 ['S', 'T', 'U', 'V', 'W', 'X'],
                 ['Y', 'Z', 'A', 'B', 'C', 'D']]
         domain = generate_domain(word, grid)
-        self.assertEqual(len(domain), 14)
+        self.assertEqual(len(domain), 2 * 14)
 
-        
+
 if __name__ == '__main__':
     unittest.main()
     

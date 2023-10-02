@@ -46,18 +46,23 @@ def generate_domain(word: str, grid: Grid) -> List[List[GridLocation]]:
         for col in range(width):
             columns: range = range(col, col + length)
             rows: range = range(row, row + length)
+            location = List[GridLocation]
             if col + length <= width:
                 # left to right
-                domain.append([GridLocation(row, c) for c in columns])
+                location = [GridLocation(row, c) for c in columns]
+                domain.extend([location, list(reversed(location))])
                 # diagonal towards bottom right
                 if row + length <= height:
-                    domain.append([GridLocation(r, col + (r - row)) for r in rows])
+                    location = [GridLocation(r, col + (r - row)) for r in rows]
+                    domain.extend([location, list(reversed(location))])
             if row + length <= height:
                 # top to bottom
-                domain.append([GridLocation(r, col) for r in rows])
+                location = [GridLocation(r, col) for r in rows]
+                domain.extend([location, list(reversed(location))])
                 # diagonal towards bottom left
                 if col + 1 - length >= 0:
-                    domain.append([GridLocation(r, col - (r - row)) for r in rows])
+                    location = [GridLocation(r, col - (r - row)) for r in rows]
+                    domain.extend([location, list(reversed(location))])
     return domain
 
 
@@ -67,10 +72,16 @@ class WordSearchConstraint(Constraint[str, List[GridLocation]]):
         self.words: List[str] = words
 
     def satisfied(self, assignment: Dict[str, List[GridLocation]]) -> bool:
-        # if there are any duplicates grid locations then there is an overlap
-        all_locations = [locs for values in assignment.values() for locs in values]
-        return len(set(all_locations)) == len(all_locations)
-
+        # The overlapping letters should be the smae letters among multiple words
+        assigned_locations: Dict[GridLocation, str] = {}
+        for word, location in assignment.items():
+            for letter, grid_location in zip(word, location):
+                if grid_location not in assigned_locations:
+                    assigned_locations[grid_location] = letter
+                elif assigned_locations[grid_location] != letter:
+                    return False
+        return True
+    
 
 if __name__ == "__main__":
     grid: Grid = generate_grid(9, 9)
@@ -85,9 +96,6 @@ if __name__ == "__main__":
         print("No solution found!")
     else:
         for word, grid_locations in solution.items():
-            # random reverse half the time
-            if choice([True, False]):
-                grid_locations.reverse()
             for index, letter in enumerate(word):
                 (row, col) = (grid_locations[index].row, grid_locations[index].column)
                 grid[row][col] = letter
