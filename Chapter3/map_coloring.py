@@ -13,6 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 from csp import Constraint, CSP
 from typing import Dict, List, Optional
 
@@ -51,6 +52,7 @@ if __name__ == "__main__":
     csp.add_constraint(MapColoringConstraint("Victoria", "New South Wales"))
     csp.add_constraint(MapColoringConstraint("Victoria", "Tasmania"))
     solution: Optional[Dict[str, str]] = csp.backtracking_search()
+    
     if solution is None:
         print("No solution found!")
     else:
