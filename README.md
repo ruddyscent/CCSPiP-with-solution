@@ -1,4 +1,4 @@
-# solution-CCSPiP
+# Solution for Classic Computer Problems in Python
 This is a solution to exercises from 'Classic Computer Problems in Python' by David Kopec.
 
 I'm going to apply the TDD approach to solve the problem, using 'Crafting Test-Driven Software with Python' by Harry Percival and Bob Gregory.
