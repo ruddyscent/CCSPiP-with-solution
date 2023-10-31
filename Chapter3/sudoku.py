@@ -1,20 +1,18 @@
-"""
-sudoku.py
-
-This module contains functions and classes for generating and solving Sudoku puzzles. It includes functions to generate a Sudoku grid, display the grid, generate a domain for the Sudoku puzzle, and fill the grid with a given assignment. The module also uses the `CSP` and `Constraint` classes from the `csp` module to represent the Sudoku puzzle as a constraint satisfaction problem.
-
-Functions:
-- generate_grid(rows: int = 9, columns: int = 9) -> Grid
-- display_grid(grid: Grid) -> None
-- generate_domain() -> Dict[Tuple[int, int], List[int]]
-- fill_grid(grid: Grid, assignment: Dict[Tuple[int, int], List[int]]) -> Grid
-
-Classes:
-- CSP, Constraint (imported from the `csp` module)
-
-Data Types:
-- Grid: A type alias for a 2D list of integers representing a Sudoku grid.
-"""
+# sudoku.py
+# This module contains functions and classes for generating and solving Sudoku puzzles. It includes functions to generate a Sudoku grid, display the grid, generate a domain for the Sudoku puzzle, and fill the grid with a given assignment. The module also uses the `CSP` and `Constraint` classes from the `csp` module to represent the Sudoku puzzle as a constraint satisfaction problem.
+# Copyright 2018 Kyungwon Chun
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 from typing import NamedTuple, List, Dict, Optional, Tuple
 from csp import CSP, Constraint
