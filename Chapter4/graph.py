@@ -88,9 +88,27 @@ class Graph(Generic[V]):
         return desc
 
 
+class DiGraph(Graph[V]):
+    # This is an undirected graph,
+    # so we always add edges in both directions
+    def add_edge(self, edge: Edge) -> None:
+        self._edges[edge.u].append(edge)
+
+    # Add an edge using vertex indices (convenience method)
+    def add_edge_by_indices(self, u: int, v: int) -> None:
+        edge: Edge = Edge(u, v)
+        self.add_edge(edge)
+
+    # Add an edge by looking up vertex indices (convenience method)
+    def add_edge_by_vertices(self, first: V, second: V) -> None:
+        u: int = self._vertices.index(first)
+        v: int = self._vertices.index(second)
+        self.add_edge_by_indices(u, v)
+
+
 if __name__ == "__main__":
     # test basic Graph construction
-    city_graph: Graph[str] = Graph(["Seattle", "San Francisco", "Los Angeles", "Riverside", "Phoenix", "Chicago", "Boston", "New York", "Atlanta", "Miami", "Dallas", "Houston", "Detroit", "Philadelphia", "Washington"])
+    city_graph: Graph[str] = DiGraph(["Seattle", "San Francisco", "Los Angeles", "Riverside", "Phoenix", "Chicago", "Boston", "New York", "Atlanta", "Miami", "Dallas", "Houston", "Detroit", "Philadelphia", "Washington"])
     city_graph.add_edge_by_vertices("Seattle", "Chicago")
     city_graph.add_edge_by_vertices("Seattle", "San Francisco")
     city_graph.add_edge_by_vertices("San Francisco", "Riverside")
@@ -121,14 +139,14 @@ if __name__ == "__main__":
 
     # Reuse BFS from Chapter 2 on city_graph
     import sys
-    sys.path.insert(0, '..') # so we can access the Chapter2 package in the parent directory
+    sys.path.insert(0, '.') # so we can access the Chapter2 package in the parent directory
     from Chapter2.generic_search import bfs, Node, node_to_path
 
     bfs_result: Optional[Node[V]] = bfs("Boston", lambda x: x == "Miami", city_graph.neighbors_for_vertex)
-    if bfs_result is None:
+    if bfs_result[0] is None:
         print("No solution found using breadth-first search!")
     else:
-        path: List[V] = node_to_path(bfs_result)
+        path: List[V] = node_to_path(bfs_result[0])
         print("Path from Boston to Miami:")
         print(path)
 
