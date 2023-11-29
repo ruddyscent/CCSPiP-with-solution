@@ -3,7 +3,7 @@ from graph import Graph, DiGraph
 
 class TestGraph(unittest.TestCase):
     def setUp(self):
-        self.graph = Graph([])
+        self.graph = Graph()
 
     def test_add_vertex(self):
         self.assertEqual(self.graph.vertex_count, 0)
