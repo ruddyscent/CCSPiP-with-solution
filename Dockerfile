@@ -5,6 +5,7 @@ RUN apt-get update \
  && apt-get -y install --no-install-recommends \
     python3-pytest-xdist \
     python3-autopep8 \
+    python3-typing-extensions \
     python-is-python3 \
     neovim \
     git \
