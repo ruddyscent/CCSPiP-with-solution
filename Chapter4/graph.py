@@ -13,6 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 from typing import TypeVar, Generic, List, Optional
 from edge import Edge
 
@@ -39,22 +40,60 @@ class Graph(Generic[V]):
         self._edges.append([]) # add empty list for containing edges
         return self.vertex_count - 1 # return index of added vertex
 
+    def remove_vertex(self, vertex: V) -> None:
+        index: int = self._vertices.index(vertex)
+        # Remove vertex
+        self._vertices.remove(vertex)
+        # Remove edges associated with vertex being removed
+        self._edges.pop(index)
+
+        # Remove any edge containing the removed vertex
+        for edges in self._edges:
+            for edge in edges:
+                if edge.u == index or edge.v == index:
+                    edges.remove(edge)
+                    
+        # Update the index of edges after the removed vertex
+        for edges in self._edges:
+            for edge in edges:
+                if edge.u > index:
+                    edge.u -= 1
+                if edge.v > index:
+                    edge.v -= 1
+
+    def remove_vertex_by_index(self, index: int) -> None:
+        vertex = self.vertex_at(index)
+        self.remove_vertex(vertex)
+        
     # This is an undirected graph,
     # so we always add edges in both directions
     def add_edge(self, edge: Edge) -> None:
         self._edges[edge.u].append(edge)
         self._edges[edge.v].append(edge.reversed())
 
+    def remove_edge(self, edge: Edge) -> None:
+        self._edges[edge.u].remove(edge)
+        self._edges[edge.v].remove(edge.reversed())
+
     # Add an edge using vertex indices (convenience method)
     def add_edge_by_indices(self, u: int, v: int) -> None:
         edge: Edge = Edge(u, v)
         self.add_edge(edge)
+
+    def remove_edge_by_indices(self, u: int, v: int) -> None:
+        edge: Edge = Edge(u, v)
+        self.remove_edge(edge)
 
     # Add an edge by looking up vertex indices (convenience method)
     def add_edge_by_vertices(self, first: V, second: V) -> None:
         u: int = self._vertices.index(first)
         v: int = self._vertices.index(second)
         self.add_edge_by_indices(u, v)
+        
+    def remove_edge_by_vertices(self, first: V, second: V) -> None:
+        u: int = self._vertices.index(first)
+        v: int = self._vertices.index(second)
+        self.remove_edge_by_indices(u, v)
 
     # Find the vertex at a specific index
     def vertex_at(self, index: int) -> V:
