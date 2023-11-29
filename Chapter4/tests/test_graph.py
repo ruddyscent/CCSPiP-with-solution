@@ -1,5 +1,5 @@
 import unittest
-from graph import Graph, Edge
+from graph import Graph, DiGraph
 
 class TestGraph(unittest.TestCase):
     def setUp(self):
@@ -76,6 +76,32 @@ class TestGraph(unittest.TestCase):
         self.graph.add_edge_by_vertices('B', 'C')
         expected_output = "A -> ['B']\nB -> ['A', 'C']\nC -> ['B']\n"
         self.assertEqual(str(self.graph), expected_output)
+
+
+class TestDiGraph(unittest.TestCase):
+    def setUp(self):
+        self.graph = DiGraph([])
+
+    def test_add_edge(self):
+        self.assertEqual(self.graph.edge_count, 0)
+        self.graph.add_edge_by_vertices('A', 'B')
+        self.assertEqual(self.graph.edge_count, 1)
+        self.assertEqual(len(self.graph.edges_for_vertex('A')), 1)
+        self.assertEqual(len(self.graph.edges_for_vertex('B')), 1)
+
+    def test_add_edge_by_indices(self):
+        self.assertEqual(self.graph.edge_count, 0)
+        self.graph.add_edge_by_indices(0, 1)
+        self.assertEqual(self.graph.edge_count, 1)
+        self.assertEqual(len(self.graph.edges_for_vertex('A')), 1)
+        self.assertEqual(len(self.graph.edges_for_vertex('B')), 1)
+
+    def test_add_edge_by_vertices(self):
+        self.assertEqual(self.graph.edge_count, 0)
+        self.graph.add_edge_by_vertices('A', 'B')
+        self.assertEqual(self.graph.edge_count, 1)
+        self.assertEqual(len(self.graph.edges_for_vertex('A')), 1)
+        self.assertEqual(len(self.graph.edges_for_vertex('B')), 1)
 
 if __name__ == '__main__':
     unittest.main()

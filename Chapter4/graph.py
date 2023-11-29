@@ -52,7 +52,7 @@ class Graph(Generic[V]):
             for edge in edges:
                 if edge.u == index or edge.v == index:
                     edges.remove(edge)
-                    
+
         # Update the index of edges after the removed vertex
         for edges in self._edges:
             for edge in edges:
