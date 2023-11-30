@@ -83,7 +83,7 @@ class QueueTestCase(unittest.TestCase):
         self.assertEqual(q.pop(), 1)
         self.assertEqual(q.pop(), 2)
         self.assertEqual(q.pop(), 3)
-        self.assertTrue(q.is_empty())
+        self.assertTrue(q.empty)
 
 
 class BfsTestCase(unittest.TestCase):
