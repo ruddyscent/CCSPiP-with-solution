@@ -129,27 +129,9 @@ class Graph(Generic[V]):
         return desc
 
 
-class DiGraph(Graph[V]):
-    # This is an undirected graph,
-    # so we always add edges in both directions
-    def add_edge(self, edge: Edge) -> None:
-        self._edges[edge.u].append(edge)
-
-    # Add an edge using vertex indices (convenience method)
-    def add_edge_by_indices(self, u: int, v: int) -> None:
-        edge: Edge = Edge(u, v)
-        self.add_edge(edge)
-
-    # Add an edge by looking up vertex indices (convenience method)
-    def add_edge_by_vertices(self, first: V, second: V) -> None:
-        u: int = self._vertices.index(first)
-        v: int = self._vertices.index(second)
-        self.add_edge_by_indices(u, v)
-
-
 if __name__ == "__main__":
     # test basic Graph construction
-    city_graph: Graph[str] = DiGraph(["Seattle", "San Francisco", "Los Angeles", "Riverside", "Phoenix", "Chicago", "Boston", "New York", "Atlanta", "Miami", "Dallas", "Houston", "Detroit", "Philadelphia", "Washington"])
+    city_graph: Graph[str] = Graph(["Seattle", "San Francisco", "Los Angeles", "Riverside", "Phoenix", "Chicago", "Boston", "New York", "Atlanta", "Miami", "Dallas", "Houston", "Detroit", "Philadelphia", "Washington"])
     city_graph.add_edge_by_vertices("Seattle", "Chicago")
     city_graph.add_edge_by_vertices("Seattle", "San Francisco")
     city_graph.add_edge_by_vertices("San Francisco", "Riverside")
@@ -190,4 +172,3 @@ if __name__ == "__main__":
         path: List[V] = node_to_path(bfs_result[0])
         print("Path from Boston to Miami:")
         print(path)
-
