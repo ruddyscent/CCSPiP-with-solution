@@ -1,5 +1,5 @@
 import unittest
-from graph import DiGraph
+from directed_graph import DiGraph
 
 
 class TestDiGraph(unittest.TestCase):
